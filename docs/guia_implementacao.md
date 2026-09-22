@@ -48,12 +48,15 @@ Pensada para não depender da instalação física das câmeras — tudo até o 
 
 ## 3. Datasets públicos para testes iniciais
 
-| Dataset | Bom para | Limitação |
-|---|---|---|
-| **8-Calves** (Fang et al. 2025) | Tracker sob oclusão | Sem anotação comportamental nem ID biométrica |
-| **CBVD-5** (Li et al. 2024, Kaggle) | Classificador de comportamento | Sem identidade persistente (formato AVA) |
-| **CattleBehaviours6** (Liu et al. 2025) | Classificador de comportamento (mesma raça, Holstein) | Rebanho/instalação diferentes — cuidado com generalização |
-| **BECA** (Zhang et al. 2025) | Prototipar arquitetura de Re-ID e degradação por tempo | Corte, não leiteiro; snapshot periódico, não vídeo contínuo |
+| Dataset | Bom para | Limitação | Status |
+|---|---|---|---|
+| **8-Calves** (Fang et al. 2025) | Tracker sob oclusão | Sem anotação comportamental nem ID biométrica | ✅ Disponível — `huggingface.co/datasets/tonyFang04/8-calves` |
+| **CBVD-5** (Li et al. 2024, Kaggle) | Classificador de comportamento | Sem identidade persistente (formato AVA) | ✅ Disponível — `kaggle.com/datasets/fandaoerji/cbvd-5cow-behavior-video-dataset` |
+| **BECA** (Zhang et al. 2025) | Prototipar arquitetura de Re-ID e degradação por tempo | Corte, não leiteiro; snapshot periódico, não vídeo contínuo | ✅ Disponível — `doi.org/10.6084/m9.figshare.29425316` |
+| **CattleBehaviours6** (Liu et al. 2025) | Classificador de comportamento (mesma raça, Holstein) | Rebanho/instalação diferentes — cuidado com generalização | ❌ **Pendente** — paper em preprint (arXiv 2510.09203), dataset só será liberado "upon acceptance". Sem link real ainda. Revisitar mais adiante ou contatar `andrew.dowsey@bristol.ac.uk`. |
+
+Script pronto pra baixar os três disponíveis: `scripts/download_datasets.sh` (dentro do repo `cattle-monitor`).
+Uso: `bash scripts/download_datasets.sh` (todos) ou `bash scripts/download_datasets.sh beca` (um específico).
 
 ---
 
