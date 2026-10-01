@@ -19,7 +19,9 @@
 #   BECA     -> curl, jq
 
 set -e
-DATA_DIR="data"
+# Resolve the project root dynamically, so data is always placed correctly
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DATA_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)/data"
 mkdir -p "$DATA_DIR"
 
 WHAT="${1:-all}"
@@ -98,14 +100,20 @@ download_beca() {
 
   DEST="$DATA_DIR/beca"
   mkdir -p "$DEST"
-  ARTICLE_ID=29425316   # DOI 10.6084/m9.figshare.29425316
+  ARTICLE_ID=32070171
 
   echo "Consultando API do Figshare (artigo $ARTICLE_ID)..."
   FILES_JSON=$(curl -s "https://api.figshare.com/v2/articles/${ARTICLE_ID}/files")
 
-  if [ -z "$FILES_JSON" ] || [ "$FILES_JSON" = "[]" ]; then
-    echo "AVISO: não consegui listar arquivos automaticamente."
-    echo "Baixe manualmente em: https://doi.org/10.6084/m9.figshare.29425316"
+  # Verifica se a resposta é de fato um array JSON antes de processar com jq.
+  # (Esse item do Figshare aparentemente não segue o padrão comum da API v2 -
+  # a resposta observada não bate com o formato esperado. Em vez de travar
+  # com erro de jq, cai no aviso manual abaixo.)
+  if ! echo "$FILES_JSON" | jq -e 'type == "array" and length > 0' >/dev/null 2>&1; then
+    echo "AVISO: não consegui listar arquivos automaticamente via API."
+    echo "Baixe manualmente por um destes links:"
+    echo "  - Link direto:    https://figshare.com/articles/dataset/BECA_A_Computer_Vision_Dataset_for_Long-Term_Recognition_In_Beef_Cattle/32070171?file=63928608"
+    echo "Depois de baixar, extraia o conteúdo para: $DEST"
     return
   fi
 

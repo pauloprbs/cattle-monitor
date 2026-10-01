@@ -62,4 +62,63 @@ Uso: `bash scripts/download_datasets.sh` (todos) ou `bash scripts/download_datas
 
 ## 4. Notas e decisões (preencher ao longo do tempo)
 
-- (adicione aqui achados, dificuldades, mudanças de escopo, decisões do orientador)
+### [Set/2026] Pivot: câmeras zona-específicas em vez de cobertura total do galpão
+
+**Contexto**: a conta de cobertura overhead contínua dos 600 m² do galpão (teto de
+~3m) exigia de 35 a 175+ câmeras — inviável. O orientador propôs, de forma
+independente, instalar câmeras em zonas funcionais de alto tráfego (comedouro,
+bebedouro, área de descanso), aproveitando cada zona para capturar simultaneamente
+(a) dataset de identificação (via tracklet, sem re-confirmar ID a cada frame) e
+(b) clipe de vídeo rotulável de comportamento.
+
+**Já fundamentado na literatura revisada** (não é lacuna nova):
+- Rice e Costa (2021) — já citado — usa exatamente essa estratégia (4 câmeras no
+  comedouro, 10 nas baias, 4 no bebedouro).
+- Yu et al. (2024) — já citado — 3 câmeras em pontos de passagem, dataset de
+  identificação construído de forma quase auto-supervisionada via tracklet.
+- Nguyen et al. (2021) — já citado — câmera única no bebedouro, captura
+  identidade + comportamento de hidratação do mesmo ponto.
+
+**Quantas câmeras os trabalhos usam, de fato** (referência pra dimensionar o
+projeto):
+
+| Trabalho | Nº câmeras | Contexto |
+|---|---|---|
+| Fuentes et al. (2023) | 2 | galpão fechado |
+| Guzhva et al. (2018) | 3 | área de espera |
+| Yu et al. (2024) | 3 | pontos de passagem, 90 vacas |
+| Noe et al. (2025) | 4 | 55 bovinos, 23,3×20 m |
+| Abbas et al. (2025) | 6 | galpão vacas leiteiras |
+| Aou et al. (2024) | 7 | galpão inteiro |
+| Yamamoto et al. (2025) | 10 | galpão inteiro, 31 dias |
+| Rice e Costa (2021) | 18 (4+10+4 zona-específicas) | free-stall completo |
+
+Densidade câmera:rebanho — Sourav e Peschel (2022) sugerem 8-10 vacas/câmera
+(ótimo teórico); Toulemonde et al. (2026) reportam ~17-23 vacas/câmera em
+implantações reais. Útil para estimar nº total de câmeras a partir do tamanho
+do rebanho, quando esse número for definido.
+
+**Pendência em aberto com o orientador**: zonas cobrem bem alimentação,
+hidratação e descanso — mas locomoção e socialização acontecem nos trajetos
+*entre* zonas, fora do alcance das câmeras nessa configuração. Decidir se ficam
+fora do escopo ou se entra uma zona de trânsito adicional.
+
+**Sobre inovação** (pergunta direta do orientador: "por usar câmera já usada
+em outros trabalhos, o projeto continua inovador?"):
+Sim — a estratégia de câmera é infraestrutura, não a contribuição. A câmera
+zona-específica já é técnica estabelecida (tabela acima). A inovação do
+trabalho continua na integração completa do pipeline (identificação-gatilho +
+tracking + classificação de comportamento em um único sistema, coisa que
+nenhum trabalho revisado faz de ponta a ponta) e no dataset resultante
+(identidade + trajetória + comportamento juntos, em confinamento tropical
+brasileiro com Holstein — combinação ainda inexistente nos benchmarks
+públicos). Não apresentar "câmeras em múltiplas zonas" como a inovação em si
+na introdução/justificativa do TCC — um avaliador da área reconheceria isso
+como técnica já estabelecida.
+
+**TCC já atualizado** com essa mudança: Seções 3.2 (objetivo de cobertura),
+4.5.1 (Aou et al. 2024 adicionado, Yamamoto/Yu detalhados, densidade
+câmera:rebanho), 4.5.2 (reescrita central da decisão), 4.5.3 (overlap
+qualificado), 5.1, Fase 0 e Fase 2 do Capítulo 6, Tabela 5 e Tabela 7,
+referências (Aou et al. 2024 adicionado).
+
