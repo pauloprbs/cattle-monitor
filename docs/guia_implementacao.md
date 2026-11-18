@@ -17,8 +17,8 @@ Prompt sugerido para colar junto com os anexos:
 
 Pensada para não depender da instalação física das câmeras — tudo até o item 4 roda com dado público.
 
-- [ ] **Fase 0 — Otimização de posicionamento de câmeras**
-  Simulação em cima do modelo 3D do galpão (40×15 m). Não depende de instalação — é o que *antecede* ela.
+- [ ] **Fase 0 — Seleção e dimensionamento de zonas estratégicas de câmeras**
+  Cálculo de footprint por zona (comedouro, bebedouro, área de descanso) — geometria simples, não GA completo. Não depende de instalação — é o que *antecede* ela. (Antes era "otimização de cobertura total do galpão"; mudou — ver Seção 4, nota de Set/2026.)
 - [ ] **Arquitetura de software** (buffer circular, schema do banco, logging)
   Engenharia pura, testável com detecções sintéticas/mockadas.
 - [ ] **Classificador de comportamento**
@@ -38,7 +38,7 @@ Pensada para não depender da instalação física das câmeras — tudo até o 
 | Tracking (base) | ⚠️ SORT, DeepSORT (Wojke et al.), OC-SORT — **papers originais, ainda não levantados** | A proposta cita adaptações bovinas, não os originais — garimpar antes de codar |
 | Tracking (longo prazo) | Wang et al. 2026 — tracking-by-classification | Arquitetura mais próxima do que foi proposto |
 | Identificação | Menezes et al. 2025 — keypoints + SNN | Mais reproduzível; bom candidato à primeira implementação |
-| Câmeras (Fase 0) | Sourav e Peschel 2022 | Algoritmo a ser portado diretamente |
+| Câmeras (Fase 0) | Sourav e Peschel 2022 | Ferramenta auxiliar, não mais a abordagem central — útil só se alguma zona tiver geometria complexa (ver Seção 4) |
 | Anotação | Cao et al. 2025 | Pipeline de anotação semi-automática (YOLOv8 + ByteTrack) |
 | Sequência de BBs | Rao et al. 2026 | Hiperparâmetros de janela (16–32 frames, 50% overlap, crop 224×224) |
 | Comportamento (baseline) | Wu et al. 2021 — CNN-LSTM | Primeiro classificador funcional, antes do TimeSformer |
